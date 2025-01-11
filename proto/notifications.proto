@@ -1,0 +1,32 @@
+syntax = "proto3";
+package notification;
+
+option go_package = "github.com/babyfaceeasy/notification_svc/internal/notification";
+
+service NotificationService {
+    rpc GetAllUserNotifications (UserRequest) returns (NotificationsResponse);
+    rpc ClearNotification (NotificationRequest) returns (Empty);
+    rpc ClearAllNotifications (UserRequest) returns (Empty);
+}
+
+message UserRequest {
+    string user_id = 1;
+}
+
+message NotificationRequest {
+    string user_id = 1;
+    string notification_id = 2;
+}
+
+message Notification {
+    string id = 1;
+    string user_id = 2;
+    string message = 3;
+    bool read = 4;
+}
+
+message NotificationsResponse {
+    repeated Notification notifications = 1;
+}
+
+message Empty {}
